@@ -44,11 +44,21 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
+  def edit_basic_info
+  end
+
+  def update_basic_info
+  end
+  
   private
   
     def user_params
       params.require(:user).permit(:name, :email, :department, 
                                    :password, :password_confirmation)
+    end
+    
+    def basic_info_params
+      params.require(:user).permit(:department, :basic_time, :work_time)
     end
     
     # beforeフィルター
