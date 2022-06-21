@@ -7,5 +7,5 @@ module AttendancesHelper
     end
     # どれにも当てはまらなかった場合はfalseを返します。
     false
-  end
+  end  
 end
