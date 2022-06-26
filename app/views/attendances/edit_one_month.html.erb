@@ -2,7 +2,7 @@
 <%= form_with(model: @user, url: attendances_update_one_month_user_path(date: @first_day), local: true, method: :patch) do |f| %>
   <div>
     <h1>勤怠編集画面</h1>
-    <table class="table table-bordered table-condensed table-hover" id="table-attendances">
+    <table class="table table-striped table-bordered table-condensed table-hover" id="table-attendances">
       <thead>
         <tr>
           <th>日付</th>
@@ -13,7 +13,7 @@
           <th>備考</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="col-form-label-lg">
         <% @attendances.each do |day| %>
           <%= f.fields_for "attendances[]", day do |attendance| %>
             <tr>
@@ -23,7 +23,7 @@
                 <td><%= attendance.time_field :started_at, readonly: true, class: "form-control" %></td>
                 <td><%= attendance.time_field :finished_at, readonly: true, class: "form-control" %></td>
               <% else %>
-                <td><%= attendance.time_field :started_at, class: "form-control" %></td>
+                <td><%= attendance.time_field :started_at, class: "form-control form-control-lg" %></td>
                 <td><%= attendance.time_field :finished_at, class: "form-control" %></td>
               <% end %>
               <td>
