@@ -27,8 +27,9 @@
       <tr>
         <th>日付</th>
         <th>曜日</th>
-        <th colspan="2">出勤時間</th>
-        <th colspan="2">退勤時間</th>
+        <th>勤怠登録</th>
+        <th>出勤時間</th>
+        <th>退勤時間</th>
         <th>在社時間</th>
         <th>備考</th>
       </tr>
@@ -37,8 +38,8 @@
     <tbody>
       <% @attendances.each do |day| %>
       <tr>
-        <td><%= l(day.worked_on, format: :short) %></td>
-        <td><%= $days_of_the_week[day.worked_on.wday] %></td>
+        <td><%= l(day.worked_on, format: :short) %></td> 
+        <td><%= $days_of_the_week[day.worked_on.wday] %></td>  
         <td>
           <% if btn_text = attendance_state(day) %>
             <%= link_to "#{btn_text}", user_attendance_path(@user, day),
@@ -59,6 +60,7 @@
     </tbody>
     
     <tfoot>
+      <!--rowspan:縦結合、colspan：横結合-->
       <tr>
         <td colspan="2">累計日数</td>
         <td colspan="2">総合勤務時間</td>
