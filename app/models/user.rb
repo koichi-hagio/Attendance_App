@@ -44,8 +44,12 @@ class User < ApplicationRecord
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
   
-  def self.search(keyword)
-    where("name like?", "%#{keyword}%")
+  def self.search(search)
+    if search
+      where(["name LIKE ?", "%#{search}%"]) 
+    else
+      all
+    end
   end
 
   def forget

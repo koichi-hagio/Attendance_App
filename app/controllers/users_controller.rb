@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_action :set_one_month, only: :show
   
   def index
-    @users = User.paginate(page: params[:page])
+      @users = User.paginate(page: params[:page]).search(params[:search])
   end
   
   def show
@@ -63,14 +63,13 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  def search
-    @users = User.search(params[:keyword])
-    @keyword = params[:keyword]
+  def search_
+    @users = User.search(params[:search])
+    @search = params[:search]
     render "index"
   end
 
-  
-  
+ 
   
   private
   
