@@ -31,6 +31,7 @@
   <table class="table table-striped table-bordered table-condensed table-hover" id="table-attendances">
     <thead>
       <tr>
+        <th rowspan="3">残業申請</th>
         <th rowspan="3">日付</th>
         <th rowspan="3">曜日</th>
         <th colspan="8">【実績】</th>
@@ -68,6 +69,7 @@
           end
       %>
         <tr>
+          <td></td>
           <td><%= l(day.worked_on, format: :short) %></td> 
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>  
           <td>
@@ -92,15 +94,14 @@
     <tfoot>
       <!--rowspan:縦結合、colspan：横結合-->
       <tr>
-        <td colspan="2">累計日数</td>
-        <td colspan="2">総合勤務時間</td>
-        <td colspan="2">累計在社時間</td>
-        <td rowspan="2"></td>
-      </tr>
-      <tr>
-        <td colspan="2"><%= @attendances.count %></td>
-        <td colspan="2"><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td>
-        <td colspan="2"><%= format("%.2f", @total_working_times.to_f) %></td>
+        <td></td>
+        <td colspan="2"></td>
+        <td colspan="6"></td>
+        <td><%= format("%.2f", @total_working_times.to_f) %></td>
+        <td colspan="5"><%= @attendances.count %></td>
+        <td>所属長承認　未</td>
+        <!--<td><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td> -->
+        
       </tr>
     </tfoot>
   </table>
