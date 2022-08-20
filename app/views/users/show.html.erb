@@ -22,10 +22,9 @@
   </table>
 </div>
 <div class="btn-users-show">
-  <%= link_to "勤怠編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-secondary" %>
-  <%= link_to "CSV出力", class: "btn btn-secondary" %>
-  <br><%= link_to "勤怠修正ログ（承認済）", class: "btn btn-secondary" %></br>
-  
+  <%= link_to "勤怠編集", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %>
+  <%= link_to "CSV出力", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %>
+  <br><%= link_to "勤怠修正ログ（承認済）", attendances_edit_one_month_user_path(date: @first_day), class: "btn btn-primary" %></br>
 </div>
 <div>
   <table class="table table-striped table-bordered table-condensed table-hover" id="table-attendances">
@@ -69,17 +68,19 @@
           end
       %>
         <tr>
-          <td></td>
+          <td><%= link_to "残業申請", "残業申請モーダルのパス＋params(出勤日)", class: "btn btn-primary" %></td>　<!-- 残業申請ボタン-->
           <td><%= l(day.worked_on, format: :short) %></td> 
           <td class="<%= css_class %>"><%= $days_of_the_week[day.worked_on.wday] %></td>  
+          <td><%= day.started_at.strftime('%H') if day.started_at.present? %></td>
+          <td><%= day.started_at.floor_to(15.minutes).strftime('%M') if day.started_at.present? %></td>　<!-- 時分に分ける -->
           <td>
             <% if btn_text = attendance_state(day) %>
               <%= link_to "#{btn_text}", user_attendance_path(@user, day),
                 method: :patch, class: "btn btn-primary btn-attendance" %>
             <% end %>
           </td>
-          <td><%= l(day.started_at.floor_to(15.minutes), format: :time) if day.started_at.present? %></td>
-          <td><%= l(day.finished_at.floor_to(15.minutes), format: :time) if day.finished_at.present? %></td>
+          <td><%= day.finished_at.strftime('%H') if day.finished_at.present? %></td>
+          <td><%= day.finished_at.floor_to(15.minutes).strftime('%M') if day.finished_at.present? %></td>
           <td>
             <% if day.started_at.present? && day.finished_at.present? %>
               <%= str_times = working_times(day.started_at, day.finished_at) %>
@@ -99,9 +100,11 @@
         <td colspan="6"></td>
         <td><%= format("%.2f", @total_working_times.to_f) %></td>
         <td colspan="5"><%= @attendances.count %></td>
-        <td>所属長承認　未</td>
+        <td>所属長承認　未
+          <br><%= link_to "CSV出力", class: "btn btn-secondary" %></br>　<!-- 選択枠 -->
+          <br><%= link_to "申請", class: "btn btn-secondary" %></br> <!-- 上長承認のための申請ボタン　>
+        </td>
         <!--<td><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td> -->
-        
       </tr>
     </tfoot>
   </table>
