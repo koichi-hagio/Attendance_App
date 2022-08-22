@@ -63,14 +63,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  def search_
-    @users = User.search(params[:search])
-    @search = params[:search]
-    render "index"
-  end
 
- 
-  
   private
   
     def user_params
