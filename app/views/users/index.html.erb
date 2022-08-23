@@ -1,12 +1,17 @@
 <% provide(:title, "All Users") %>
   <h1>ユーザー一覧</h1>
+  
 
-<div class="col-md-10">
+
+<div class="col-lg-10">
   <div class="pull-left">
-    <%= form_with url: users_path, method: :get, local: true do |f| %>
-      <%= f.file_field :upload_file %>
+    <%=  form_with model: @user do |f| %>
+      <%= f.file_field :upload_file %> <!-- csvのみインポート可にする -->
+      <%= f.submit "CSVをインポート", class: "btn btn-primary btn-block btn-basic-info" %>
     <% end %>
   </div>
 </div>
 
-<!-- f.submit "ファイルを選択", class: "btn btn-sm btn-" col-md-offset-1 -->
+<!-- form_with url: users_path, method: :get, local: true -->
+
+  
