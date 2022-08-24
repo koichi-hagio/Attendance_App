@@ -112,8 +112,11 @@
         <td><%= format("%.2f", @total_working_times.to_f) %></td>
         <td colspan="5"><%= @attendances.count %></td>
         <td>所属長承認　未
-          <br><%= link_to "CSV出力", class: "btn btn-secondary" %></br>　<!-- 選択枠 -->
-          <br><%= link_to "申請", class: "btn btn-primary" %></br> <!-- 上長承認のための申請ボタン　>
+          <%= form_with model: @hoge do |f| %>
+          <!-- 以下の一行がプルダウンを実装するためのコード（追記部分）-->
+            <%= f.select :保存先のカラム名, [["選択肢１", "実際にDBに保存させる内容"], ["選択肢２", "実際にDBに保存させる内容"]] %>
+            <br><%= f.submit '申請', class: "btn btn-primary btn-block btn-basic-info" %></br>
+  　　　　　　<% end %>
         </td>
         <!--<td><%= format_basic_info(@user.work_time).to_f * @worked_sum %></td> -->
       </tr>
